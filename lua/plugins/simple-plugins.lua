@@ -1,10 +1,4 @@
 return {
-  {
-    "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
-  },
-
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
@@ -12,6 +6,11 @@ return {
       require "configs.lspconfig"
     end,
   },
+  { "mfussenegger/nvim-jdtls" },
+  { "voldikss/vim-floaterm", lazy = false },
+  { "akinsho/toggleterm.nvim", version = "*", config = true },
+  { "folke/which-key.nvim", opts = { delay = 500 } },
+  { "nvim-tree/nvim-tree.lua", opts = { filters = { dotfiles = false } } },
 
   -- test new blink
   -- { import = "nvchad.blink.lazyspec" },
