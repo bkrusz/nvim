@@ -29,7 +29,7 @@ return {
         dashboard.button("n", " " .. " New file",        "<cmd>ene!<cr>"),
         dashboard.button("r", " " .. " Recent files",    "<cmd>Telescope oldfiles<cr>"),
         dashboard.button("g", " " .. " Find text",       "<cmd>Telescope live_grep<cr>"),
-        dashboard.button("c", " " .. " Config",          ":e $MYVIMRC | :cd %:p:h | wincmd k | pwd<CR>"),
+        dashboard.button("c", " " .. " Config",          ":e $MYVIMRC | :cd %:p:h | wincmd k | pwd<cr>"),
         dashboard.button("s", " " .. " Restore Session", [[<cmd> lua require("persistence").load() <cr>]]),
         dashboard.button("l", "󰒲 " .. " Lazy",            "<cmd>Lazy<cr>"),
         dashboard.button("q", " " .. " Quit",            "<cmd>qa<cr>")

@@ -42,7 +42,7 @@ return {
           cvs = false,
           ["."] = false
         },
-        copilot_node_command = vim.fn.expand("$HOME") .. "/.nvm/versions/node/v22.17.0/bin/node",
+        copilot_node_command = vim.fn.expand("$HOME") .. "/.nvm/versions/node/v23.0.0/bin/node",
         server_opts_overrides = {},
       })
     end
@@ -60,7 +60,14 @@ return {
       "zbirenbaum/copilot.lua",
       { "nvim-lua/plenary.nvim", branch = "master" },
     },
-    opts = {},
+    opts = {
+      prompts = {
+        GenerateSwaggerDocs = {
+          prompt = "Generate a Swagger documentation file in yaml for the following code:\n\n",
+          description = "Generate Swagger docs",
+        },
+      }
+    },
     keys = {}
   }
 }
