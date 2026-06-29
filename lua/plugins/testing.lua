@@ -154,7 +154,7 @@ return {
     version = "*",
     dependencies = {
       "nvim-neotest/neotest",
-      "nivm-lua/plenary.nvim"
+      "nvim-lua/plenary.nvim"
     },
     config = function ()
       require("coverage").setup({
