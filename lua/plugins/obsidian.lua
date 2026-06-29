@@ -15,7 +15,7 @@ return {
         workspaces = {
           {
             name = "PKM",
-            path = "/Users/bkrusze/notes"
+            path = "/Users/bailey/PKM"
           }
         },
         daily_notes = {
