@@ -1,4 +1,5 @@
 return {
+<<<<<<<< HEAD:lua/plugins/simple-plugins.lua
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
@@ -24,4 +25,17 @@ return {
   -- 		},
   -- 	},
   -- },
+========
+    require('plugins.simple-plugins'),
+    require('plugins.alpha'),
+    require('plugins.obsidian'),
+    require('plugins.tmux'),
+    require('plugins.go'),
+    require('plugins.rust'),
+    require('plugins.xcode'),
+    require('plugins.copilot'),
+    require('plugins.colorizer'),
+    require('plugins.testing'),
+    require('plugins.harpoon'),
+>>>>>>>> main:lua/plugins/init.lua
 }
