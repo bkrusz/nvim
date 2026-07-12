@@ -1,106 +1,83 @@
 return {
   {
-    "epwalsh/obsidian.nvim",
-    version = "*",
+    'obsidian-nvim/obsidian.nvim',
+    version = '*',
     lazy = false,
-    ft = "markdown",
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-      "plenary.nvim",
-      -- "nvim-telescope/telescope.nvim"
-      "junegunn/fzf",
-    },
+    ft = { 'markdown' },
     config = function()
-      require("obsidian").setup({
+      require('obsidian').setup({
         workspaces = {
           {
-            name = "PKM",
-            path = "/Users/bailey/PKM"
+            name = 'PKM',
+            path = '/Users/bailey/PKM'
           }
         },
+        link = {
+          format = 'relative',
+          style = require('obsidian.link').wiki_link_alias_only,
+        },
         daily_notes = {
-          folder = "daily_notes",
-          date_format = "%Y-%m-%d",
-          alias_format = "%B %-d, %Y",
+          folder = 'daily_notes',
+          date_format = '%Y-%m-%d',
+          alias_format = '%B %-d, %Y',
           template = nil
         },
-        completion = {
-          nvim_cmp = true,
-          min_chars = 1,
+        completion = { min_chars = 1 },
+        templates = { folder = 'templates' },
+        note = { template = 'default.md' },
+        new_notes_location = 'current_dir',
+        note_id_func = require('obsidian.builtin').title_id,
+        unique_note = { enabled = false },
+        frontmatter = {
+          enabled = true,
+          func = function(note)
+            local out = { id = note.id, aliases = note.aliases, tags = note.tags }
+            if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+              for k,v in pairs(note.metadata) do
+                out[k] = v
+              end
+            end
+            return out
+          end,
         },
-        new_notes_location = "current_dir",
-        wiki_link_func = function(opts)
-          if opts.label ~= opts.path then
-            return string.format("[[%s|%s]]", opts.path, opts.label)
-          else
-            return string.format("[[%s]]", opts.path)
-          end
-        end,
-        mappings = {},
-        note_id_func = function(title)
-          local suffix = ""
-          if title ~= nil then
-            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-          else
-            for _ = 1, 4 do
-              suffix = suffix .. string.char(math.random(65, 90))
-            end
-          end
-          return suffix .. "-" .. string.sub(tostring(os.time()), -4, -1)
-        end,
-        disable_frontmatter = false,
-        note_frontmatter_func = function(note)
-          local out = { id = note.id, aliases = note.aliases, tags = note.tags }
-          if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-            for k,v in pairs(note.metadata) do
-              out[k] = v
-            end
-          end
-          return out
-        end,
-        follow_url_func = function(url)
-          vim.fn.jobstart({"open", url})
-        end,
-        -- Set to true to force ':ObsidianOpen' to bring the app to the foreground
-        open_app_foreground = true,
-        -- sort search results by "path", "modified", "accessed", or "created"
-        sort_by = "modified",
-        sort_reversed = true,
-        -- Determines how certain commands open notes. The valid options are:
-        -- 1. "current" (the default) - to always open in the current window
-        -- 2. "vsplit" - to open in a vertical split if there's not already a vertical split
-        -- 3. "hsplit" - to open in a horizontal split if there's not already a horizontal split
-        open_notes_in = "current",
+        search = {
+          sort_by = 'modified',
+          sort_reversed = true
+        },
+        open_notes_in = 'current',
+        checkbox = {
+          enabled = true,
+          create_new = true,
+          order = { ' ', '/', 'x' }
+        },
         ui = {
           enable = true,
           update_debounce = 200,
-          checkboxes = {
-            [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-            ["x"] = { char = "", hl_group = "ObsidianDone" },
-            ["c"] = { char = "󰰱", hl_group = "ObsidianTilde" },
-            ["/"] = { char = "󰏬", hl_group = "ObsidianInProgress" },
-            ["?"] = { char = "", hl_group = "ObsidianTilde" },
-          },
-          bullets = { char = "•", hl_group = "ObsidianBullet" },
-          external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
-          reference_text = { hl_group = "ObsidianRefText" },
-          highlight_text = { hl_group = "ObsidianHighlightText" },
-          tags = { hl_group = "ObsidianTag" },
+          -- checkboxes = {
+          --   [' '] = { char = '󰄱', hl_group = 'ObsidianTodo' },
+          --   ['/'] = { char = '󰏬', hl_group = 'ObsidianInProgress' },
+          --   ['x'] = { char = '', hl_group = 'ObsidianDone' },
+          -- },
+          bullets = { char = '•', hl_group = 'ObsidianBullet' },
+          external_link_icon = { char = '', hl_group = 'ObsidianExtLinkIcon' },
+          reference_text = { hl_group = 'ObsidianRefText' },
+          highlight_text = { hl_group = 'ObsidianHighlightText' },
+          tags = { hl_group = 'ObsidianTag' },
           hl_groups = {
-            ObsidianTodo = { bold = true, fg = "#f78c6c" },
-            ObsidianDone = { bold = true, fg = "#03fc0b" },
-            ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
-            ObsidianTilde = { bold = true, fg = "#ff5370" },
-            ObsidianInProgress = { bold = true, fg = "#fce803" },
-            ObsidianRefText = { underline = true, fg = "#c792ea" },
-            ObsidianExtLinkIcon = { fg = "#c792ea" },
-            ObsidianTag = { italic = true, fg = "#89ddff" },
-            ObsidianHighlightText = { bg = "#75662e" },
-            ObsidianBullet = { bold = true, fg = "#d47766"}
+            ObsidianTodo = { bold = true, fg = '#f78c6c' },
+            ObsidianDone = { bold = true, fg = '#03fc0b' },
+            ObsidianRightArrow = { bold = true, fg = '#f78c6c' },
+            ObsidianTilde = { bold = true, fg = '#ff5370' },
+            ObsidianInProgress = { bold = true, fg = '#fce803' },
+            ObsidianRefText = { underline = true, fg = '#c792ea' },
+            ObsidianExtLinkIcon = { fg = '#c792ea' },
+            ObsidianTag = { italic = true, fg = '#89ddff' },
+            ObsidianHighlightText = { bg = '#75662e' },
+            ObsidianBullet = { bold = true, fg = '#d47766'}
           },
         },
         attachments = {
-          img_folder = "assets/imgs",
+          folder = '/Users/bailey/PKM/assets/imgs',
           -- A function that determines the text to insert in the note when pasting an image
           --- @param client obsidian.Client
           --- @param path Path the absolute path to the image file
@@ -115,10 +92,11 @@ return {
               link_path = tostring(path)
             end
             local display_name = vim.fs.basename(link_path)
-            return string.format("![%s](%s)", display_name, link_path)
+            return string.format('![%s](%s)', display_name, link_path)
           end,
         },
-        yaml_parser = "native",
+        yaml_parser = 'native',
+        legacy_commands = false,
       })
     end
   }

@@ -2,8 +2,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "java", "lua", "javascript", "markdown", "kotlin" },
+      ensure_installed = { "java", "lua", "javascript", "markdown", "markdown_inline", "kotlin" },
       indent = { enabled = true },
+      highlight = { enabled = true },
       incremental_selection = {
         enable = true,
         keymaps = {

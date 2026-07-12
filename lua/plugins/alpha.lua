@@ -21,11 +21,11 @@ return {
       }
       dashboard.section.header.opts = {
         position = "center",
-        hl = "Keyword"
+        hl = "Include"
       }
       dashboard.section.buttons.val = {
         dashboard.button("p", " " .. " Projects",        "<cmd>Telescope projects<cr>"),
-        dashboard.button("f", " " .. " Find file",       "<cmd>Telescope find_files<cr>"),
+        dashboard.button("o", " " .. " Obsidian",        "<cmd>e /Users/bailey/PKM/Home.md<cr>"),
         dashboard.button("n", " " .. " New file",        "<cmd>ene!<cr>"),
         dashboard.button("r", " " .. " Recent files",    "<cmd>Telescope oldfiles<cr>"),
         dashboard.button("g", " " .. " Find text",       "<cmd>Telescope live_grep<cr>"),
@@ -35,7 +35,6 @@ return {
         dashboard.button("q", " " .. " Quit",            "<cmd>qa<cr>")
       }
       for _, button in ipairs(dashboard.section.buttons.val) do
-        button.opts.hl = "Normal"
         button.opts.hl_shortcut = "Boolean"
       end
       dashboard.opts.layout[1].val = 8
