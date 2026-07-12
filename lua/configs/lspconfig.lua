@@ -62,19 +62,9 @@ M.defaults = function()
     },
   }
 
-  -- Support 0.10 temporarily
-
-  if vim.lsp.config then
-    vim.lsp.config("*", { capabilities = M.capabilities, on_init = M.on_init })
-    vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
-    vim.lsp.enable "lua_ls"
-  else
-    require("lspconfig").lua_ls.setup {
-      capabilities = M.capabilities,
-      on_init = M.on_init,
-      settings = lua_lsp_settings,
-    }
-  end
+  vim.lsp.config("*", { capabilities = M.capabilities, on_init = M.on_init })
+  vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
+  vim.lsp.enable "lua_ls"
 end
 
 local servers = { "html", "cssls", "jdtls", "kotlin_lsp" }

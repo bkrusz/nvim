@@ -83,8 +83,8 @@ local config = {
         updateBuildConfiguration = "interactive",
         runtimes = {
           {
-            name = "JavaSE-17",
-            path = "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home",
+            name = "JavaSE-25",
+            path = "/Library/Java/JavaVirtualMachines/zulu-25.jdk/Contents/Home",
           },
         },
       },
@@ -152,7 +152,7 @@ end
 
 local function setup_codelens_refresh(client, bufnr)
   local status_ok, codelens_supported = pcall(function()
-    return client.supports_method "textDocument/codeLens"
+    return client:supports_method "textDocument/codeLens"
   end)
   if not status_ok or not codelens_supported then
     return
@@ -173,14 +173,14 @@ local function setup_codelens_refresh(client, bufnr)
     group = group,
     buffer = bufnr,
     callback = function()
-      vim.lsp.codelens.refresh { bufnr = bufnr }
+      vim.lsp.codelens.enable(true, { bufnr = bufnr })
     end,
   })
 end
 
 local function setup_document_symbols(client, bufnr)
   vim.g.navic_silence = false -- can be set to true to suppress error
-  local symbols_supported = client.supports_method "textDocument/documentSymbol"
+  local symbols_supported = client:supports_method "textDocument/documentSymbol"
   if not symbols_supported then
     Log:debug("skipping setup for document_symbols, method not supported by " .. client.name)
     return
@@ -215,6 +215,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 require("jdtls").start_or_attach(config)
 
 Global_jdtls = require("jdtls")
+
 function Organize_imports_save_and_close()
   Global_jdtls.organize_imports()
   vim.cmd("update")
